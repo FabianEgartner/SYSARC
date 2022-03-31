@@ -17,7 +17,14 @@ public class BookingRepositoryImpl implements BookingRepository {
     }
 
     @Override
-    public void cancelBooking(BookingId id) {
-
+    public void cancelBooking(BookingId bookingId) {
+        for (int i = 0; i < bookings.size(); i++)
+        {
+            if (bookings.get(i).getBookingId().equals(bookingId))
+            {
+                bookings.remove(i);
+                return;
+            }
+        }
     }
 }

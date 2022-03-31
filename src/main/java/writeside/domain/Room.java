@@ -27,4 +27,12 @@ public class Room {
     public void setRoomStatus(RoomStatus roomStatus) {
         this.roomStatus = roomStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomNumber='" + roomNumber + '\'' +
+                ", roomStatus=" + roomStatus +
+                '}';
+    }
 }

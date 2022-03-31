@@ -3,6 +3,7 @@ package writeside.domain;
 import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Booking {
@@ -11,7 +12,7 @@ public class Booking {
     private String customer;
     private LocalDate fromDate;
     private LocalDate toDate;
-    private List<String> rooms;
+    private List<String> rooms = new ArrayList<>();
 
 
     public Booking(BookingId bookingId, String customer, String roomNumber, LocalDate fromDate, LocalDate toDate) {
