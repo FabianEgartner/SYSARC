@@ -3,9 +3,10 @@ package writeside.application.api;
 import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface BookingService {
 
-    void bookRoom(String customer, String roomNumber, LocalDate fromDate, LocalDate toDate);
-    void cancelBooking(BookingId id);
+    boolean bookRoom(String customer, List<String> roomNumber, LocalDate fromDate, LocalDate toDate);
+    boolean cancelBooking(BookingId id);
 }
