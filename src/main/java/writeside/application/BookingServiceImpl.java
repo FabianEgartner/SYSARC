@@ -35,6 +35,7 @@ public class BookingServiceImpl implements BookingService {
         }
         catch (IllegalArgumentException e)
         {
+            System.out.println(e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -56,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
         }
         catch (IllegalArgumentException e)
         {
+            System.out.println(e.getMessage());
             e.printStackTrace();
             return false;
         }
