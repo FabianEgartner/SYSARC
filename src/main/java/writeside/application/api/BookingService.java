@@ -6,8 +6,6 @@ import java.time.LocalDate;
 
 public interface BookingService {
 
-    void bookRoom(LocalDate from, LocalDate until, int roomNr, String name);
-
+    void bookRoom(String customer, String roomNumber, LocalDate fromDate, LocalDate toDate);
     void cancelBooking(BookingId id);
-
 }
