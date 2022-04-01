@@ -5,7 +5,7 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WritesidePortConfigurator implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
+public class ReadsidePortConfigurator implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
     @Override
     public void customize(ConfigurableWebServerFactory factory) {

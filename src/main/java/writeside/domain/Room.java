@@ -20,6 +20,14 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
+    }
+
     public RoomStatus getRoomStatus() {
         return roomStatus;
     }
@@ -32,6 +40,7 @@ public class Room {
     public String toString() {
         return "Room{" +
                 "roomNumber='" + roomNumber + '\'' +
+                ", numberOfBeds=" + numberOfBeds +
                 ", roomStatus=" + roomStatus +
                 '}';
     }
