@@ -1,7 +1,6 @@
 package readside.domain;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +15,36 @@ public class AvailableRoom {
         this.numberOfBeds = numberOfBeds;
     }
 
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public void addOccupiedPeriod(OccupiedPeriod occupiedPeriod)
+    {
+        occupiedPeriods.add(occupiedPeriod);
+    }
+
     public boolean isFree(LocalDate fromDate, LocalDate toDate)
     {
         for (OccupiedPeriod period : occupiedPeriods)
         {
-            if (!(toDate.isBefore(period.getFromDate()) || fromDate.isAfter(period.getToDate())))
+            if (toDate.isAfter(period.getFromDate().plusDays(1)) && fromDate.isBefore(period.getToDate()))
                 return false;
         }
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AvailableRoom{" +
+                "roomNumber='" + roomNumber + '\'' +
+                ", numberOfBeds=" + numberOfBeds +
+                ", occupiedPeriods=" + occupiedPeriods +
+                '}';
     }
 }
