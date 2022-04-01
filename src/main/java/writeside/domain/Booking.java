@@ -14,6 +14,13 @@ public class Booking {
     private LocalDate toDate;
     private List<String> rooms = new ArrayList<>();
 
+    public Booking(BookingId bookingId, String customer, LocalDate fromDate, LocalDate toDate) {
+        this.bookingId = bookingId;
+        this.customer = customer;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
     public Booking(BookingId bookingId, String customer, List<String> roomNumbers, LocalDate fromDate, LocalDate toDate) {
         this.bookingId = bookingId;
         this.customer = customer;

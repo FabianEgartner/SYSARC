@@ -3,9 +3,8 @@ package readside.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import readside.application.api.BookingService;
 import readside.application.dto.BookingDTO;
-import writeside.domain.Booking;
 import readside.domain.api.BookingRepository;
-import writeside.domain.api.RoomRepository;
+import writeside.domain.Booking;
 
 import java.time.LocalDate;
 import java.util.List;

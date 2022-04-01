@@ -1,6 +1,5 @@
 package writeside.domain.valueobjects;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class BookingId {

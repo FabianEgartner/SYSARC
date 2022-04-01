@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 
 public class BookingDTO {
 
-    private BookingId bookingId;
-    private String customer;
-    private LocalDate fromDate;
-    private LocalDate toDate;
-    private List<String> rooms;
+    private final BookingId bookingId;
+    private final String customer;
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
+    private final List<String> rooms;
 
     public BookingDTO(BookingId bookingId, String customer, LocalDate fromDate, LocalDate toDate, List<String> rooms) {
         this.bookingId = bookingId;
@@ -27,12 +27,12 @@ public class BookingDTO {
 
         return bookings
                 .stream()
-                .map(booking ->
-                        new BookingDTO(booking.getBookingId(),
-                                booking.getCustomer(),
-                                booking.getFromDate(),
-                                booking.getToDate(),
-                                booking.getRooms()))
+                .map(booking -> new BookingDTO(
+                        booking.getBookingId(),
+                        booking.getCustomer(),
+                        booking.getFromDate(),
+                        booking.getToDate(),
+                        booking.getRooms()))
                 .collect(Collectors.toList());
     }
 }

@@ -3,16 +3,15 @@ package readside.infrastructure;
 import readside.domain.AvailableRoom;
 import readside.domain.api.RoomRepository;
 import writeside.domain.Room;
-import writeside.domain.RoomStatus;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class RoomRepositoryImpl implements RoomRepository {
 
-    private List<AvailableRoom> availableRooms = new ArrayList<>();
+    private final List<AvailableRoom> availableRooms = new ArrayList<>();
 
     public RoomRepositoryImpl() {
         availableRooms.add(new AvailableRoom("100", 1));
@@ -35,11 +34,18 @@ public class RoomRepositoryImpl implements RoomRepository {
     public List<Room> getFreeRooms(LocalDate fromDate, LocalDate toDate, int numberOfGuests) {
 
         List<Room> freeRooms = new ArrayList<>();
+        int numberOfGuestsTmp = numberOfGuests;
 
         for (AvailableRoom availableRoom : availableRooms)
         {
-            if (availableRoom.isFree(fromDate, toDate))
+            if (availableRoom.isFree(fromDate, toDate) && availableRoom.getNumberOfBeds() <= numberOfGuestsTmp) {
                 freeRooms.add(new Room(availableRoom.getRoomNumber(), availableRoom.getNumberOfBeds()));
+                numberOfGuestsTmp = numberOfGuestsTmp - availableRoom.getNumberOfBeds();
+            }
+        }
+
+        if (numberOfGuestsTmp > 0) {
+            return Collections.emptyList();
         }
 
         return freeRooms;

@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class OccupiedPeriod {
 
-    private LocalDate fromDate;
-    private LocalDate toDate;
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
 
     public OccupiedPeriod(LocalDate fromDate, LocalDate toDate) {
         this.fromDate = fromDate;

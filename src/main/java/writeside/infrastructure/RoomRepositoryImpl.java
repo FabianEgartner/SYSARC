@@ -2,7 +2,7 @@ package writeside.infrastructure;
 
 import org.springframework.stereotype.Component;
 import writeside.domain.Room;
-import writeside.domain.RoomStatus;
+import writeside.domain.valueobjects.RoomStatus;
 import writeside.domain.api.RoomRepository;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class RoomRepositoryImpl implements RoomRepository {
 
-    private List<Room> rooms = new ArrayList<>();
+    private final List<Room> rooms = new ArrayList<>();
 
     public RoomRepositoryImpl() {
         rooms.add(new Room("100", 1));
@@ -43,8 +43,4 @@ public class RoomRepositoryImpl implements RoomRepository {
         return Optional.empty();
     }
 
-    //    @Override
-//    public void createRoom(String roomNumber, int availableBeds) {
-//        rooms.add(new Room(roomNumber, availableBeds));
-//    }
 }

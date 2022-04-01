@@ -2,8 +2,6 @@ package writeside.infrastructure;
 
 import org.springframework.stereotype.Component;
 import writeside.domain.Booking;
-import writeside.domain.Room;
-import writeside.domain.RoomStatus;
 import writeside.domain.api.BookingRepository;
 import writeside.domain.valueobjects.BookingId;
 
@@ -14,7 +12,7 @@ import java.util.Optional;
 @Component
 public class BookingRepositoryImpl implements BookingRepository {
 
-    private List<Booking> bookings = new ArrayList<>();
+    private final List<Booking> bookings = new ArrayList<>();
 
     @Override
     public void createBooking(Booking booking) {

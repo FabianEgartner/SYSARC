@@ -1,5 +1,7 @@
 package writeside.domain;
 
+import writeside.domain.valueobjects.RoomStatus;
+
 public class Room {
 
     private String roomNumber;

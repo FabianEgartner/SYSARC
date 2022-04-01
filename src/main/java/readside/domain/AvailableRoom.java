@@ -6,9 +6,9 @@ import java.util.List;
 
 public class AvailableRoom {
 
-    private String roomNumber;
-    private int numberOfBeds;
-    private List<OccupiedPeriod> occupiedPeriods = new ArrayList<>();
+    private final String roomNumber;
+    private final int numberOfBeds;
+    private final List<OccupiedPeriod> occupiedPeriods = new ArrayList<>();
 
     public AvailableRoom(String roomNumber, int numberOfBeds) {
         this.roomNumber = roomNumber;
@@ -23,15 +23,12 @@ public class AvailableRoom {
         return numberOfBeds;
     }
 
-    public void addOccupiedPeriod(OccupiedPeriod occupiedPeriod)
-    {
+    public void addOccupiedPeriod(OccupiedPeriod occupiedPeriod) {
         occupiedPeriods.add(occupiedPeriod);
     }
 
-    public boolean isFree(LocalDate fromDate, LocalDate toDate)
-    {
-        for (OccupiedPeriod period : occupiedPeriods)
-        {
+    public boolean isFree(LocalDate fromDate, LocalDate toDate) {
+        for (OccupiedPeriod period : occupiedPeriods) {
             if (toDate.isAfter(period.getFromDate().plusDays(1)) && fromDate.isBefore(period.getToDate()))
                 return false;
         }
