@@ -10,15 +10,10 @@ import java.util.List;
 public class BookingRepositoryImpl implements BookingRepository {
 
     private List<Booking> bookings = new ArrayList<>();
+    private List<Booking> bookingsInPeriod = new ArrayList<>();
 
     @Override
     public List<Booking> getBookings(LocalDate fromDate, LocalDate toDate) {
-        for (Booking booking : bookings)
-        {
-            if (booking.getFromDate(). && booking.getToDate() <= toDate)
-            {
-
-            }
-        }
+        return null;
     }
 }
