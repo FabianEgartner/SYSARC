@@ -54,6 +54,14 @@ public class Booking {
         this.toDate = toDate;
     }
 
+    public List<String> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<String> rooms) {
+        this.rooms = rooms;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -61,6 +69,7 @@ public class Booking {
                 ", customer='" + customer + '\'' +
                 ", fromDate=" + fromDate +
                 ", toDate=" + toDate +
+                ", rooms=" + rooms +
                 '}';
     }
 }

@@ -19,6 +19,6 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate) {
 
         List<Booking> bookings = bookingRepository.getBookings(fromDate, toDate);
-        return BookingDTO.fromBooking(bookings);
+        return BookingDTO.fromBookings(bookings);
     }
 }
