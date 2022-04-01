@@ -15,6 +15,14 @@ public class BookingRepositoryImpl implements BookingRepository {
 
     @Override
     public List<Booking> getBookings(LocalDate fromDate, LocalDate toDate) {
-        return null;
+        List<Booking> bookingsInPeriod = new ArrayList<>();
+
+        for (Booking booking : bookings)
+        {
+            if(booking.getFromDate().isAfter(fromDate.minusDays(1)) && booking.getToDate().isBefore(toDate.plusDays(1)))
+                bookingsInPeriod.add(booking);
+        }
+
+        return bookingsInPeriod;
     }
 }
