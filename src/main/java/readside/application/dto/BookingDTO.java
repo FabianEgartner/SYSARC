@@ -23,6 +23,16 @@ public class BookingDTO {
         this.rooms = rooms;
     }
 
+    public static BookingDTO fromBooking(Booking booking) {
+
+        return new BookingDTO(
+                        booking.getBookingId(),
+                        booking.getCustomer(),
+                        booking.getFromDate(),
+                        booking.getToDate(),
+                        booking.getRooms());
+    }
+
     public static List<BookingDTO> fromBookings(List<Booking> bookings) {
 
         return bookings
@@ -34,5 +44,25 @@ public class BookingDTO {
                         booking.getToDate(),
                         booking.getRooms()))
                 .collect(Collectors.toList());
+    }
+
+    public BookingId getBookingId() {
+        return bookingId;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public LocalDate getFromDate() {
+        return fromDate;
+    }
+
+    public LocalDate getToDate() {
+        return toDate;
+    }
+
+    public List<String> getRooms() {
+        return rooms;
     }
 }

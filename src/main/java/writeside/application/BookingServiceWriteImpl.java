@@ -2,6 +2,7 @@ package writeside.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import readside.application.dto.BookingDTO;
 import readside.infrastructure.RoomRepositoryReadImpl;
 import writeside.application.api.BookingServiceWrite;
 import writeside.domain.Booking;
@@ -22,10 +23,12 @@ public class BookingServiceWriteImpl implements BookingServiceWrite {
     private RoomRepositoryRead roomRepository = new RoomRepositoryReadImpl();
 
     @Override
-    public void bookRoom(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate) {
+    public BookingDTO bookRoom(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate) {
 
         Booking booking = new Booking(new BookingId(), customer, bookedRooms, fromDate, toDate);
         bookingRepository.createBooking(booking);
+
+        return BookingDTO.fromBooking(booking);
     }
 
     @Override

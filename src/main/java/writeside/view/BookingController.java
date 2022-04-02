@@ -14,12 +14,14 @@ import readside.application.BookingServiceReadImpl;
 import readside.application.RoomServiceReadImpl;
 import readside.application.api.BookingServiceRead;
 import readside.application.api.RoomServiceRead;
+import readside.application.dto.BookingDTO;
 import readside.domain.NotEnoughRoomsException;
 import writeside.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
 import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -32,7 +34,8 @@ public class BookingController {
 
     private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
 
-    private final EventPublisher eventPublisher = new EventPublisher();
+    @Autowired
+    private EventPublisher eventPublisher;
 
     @GetMapping("/")
     public ModelAndView startPage() {
@@ -40,7 +43,7 @@ public class BookingController {
     }
 
     @PostMapping("/bookRoom")
-    public RedirectView submitBooking(
+    public ModelAndView submitBooking(
             @RequestParam("customerName") String customerName,
             @RequestParam("fromDate") String fromDate,
             @RequestParam("toDate") String toDate,
@@ -48,22 +51,28 @@ public class BookingController {
 
         try {
 
+            if ("".equals(customerName) || "".equals(fromDate) || "".equals(toDate) || "".equals(numberOfGuests))
+            {
+                throw new IllegalArgumentException("input is not valid");
+            }
+
             List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
-            bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
+            BookingDTO createdBooking = bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
 
             eventPublisher.publishEvent(new BookingCreatedEvent(
-                    new BookingId(),
-                    customerName,
-                    LocalDate.parse(fromDate),
-                    LocalDate.parse(toDate),
-                    freeRooms
+                    createdBooking.getBookingId(),
+                    createdBooking.getCustomer(),
+                    createdBooking.getFromDate(),
+                    createdBooking.getToDate(),
+                    createdBooking.getRooms()
             ));
 
-        } catch (NotEnoughRoomsException e) {
+        } catch (NotEnoughRoomsException | DateTimeParseException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
-            return new RedirectView("bookingFailed");
+            return new ModelAndView("redirect:"+"bookingFailed.html");
         }
 
-        return new RedirectView("/");
+        return new ModelAndView("redirect:"+"/");
     }
 }

@@ -22,7 +22,7 @@ public class EventPublisher {
                 .uri(event.getUri())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), event.getClass())
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();

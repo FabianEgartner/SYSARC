@@ -17,7 +17,6 @@ public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
     @Override
     public void createBooking(Booking booking) {
         bookings.add(booking);
-        // BookingCreatedEvent
     }
 
     @Override

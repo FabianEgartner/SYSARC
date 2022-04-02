@@ -13,5 +13,6 @@ public class BookingCancelledEvent extends Event {
 
         this.timestamp = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
         this.uri = "/bookingCancelled/";
+        this.className = "BookingCancelledEvent.class";
     }
 }
