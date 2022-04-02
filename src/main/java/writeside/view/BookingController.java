@@ -2,26 +2,24 @@ package writeside.view;
 
 import eventside.domain.BookingCreatedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import readside.application.BookingServiceReadImpl;
 import readside.application.RoomServiceReadImpl;
-import readside.application.api.BookingServiceRead;
 import readside.application.api.RoomServiceRead;
-import readside.application.dto.BookingDTO;
 import readside.domain.NotEnoughRoomsException;
-import writeside.EventPublisher;
+import writeside.domain.api.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
 import writeside.domain.valueobjects.BookingId;
+import writeside.infrastructure.EventPublisherImpl;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -34,45 +32,42 @@ public class BookingController {
 
     private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
 
-    @Autowired
-    private EventPublisher eventPublisher;
+    private final EventPublisher eventPublisher = new EventPublisherImpl();
+
 
     @GetMapping("/")
     public ModelAndView startPage() {
-        return new ModelAndView("index.html");
+        return new ModelAndView("index");
     }
 
     @PostMapping("/bookRoom")
-    public ModelAndView submitBooking(
+    public RedirectView submitBooking(
             @RequestParam("customerName") String customerName,
             @RequestParam("fromDate") String fromDate,
             @RequestParam("toDate") String toDate,
-            @RequestParam("numberOfGuests") String numberOfGuests) {
+            @RequestParam("numberOfGuests") String numberOfGuests,
+            RedirectAttributes redirectAttributes) {
 
         try {
 
-            if ("".equals(customerName) || "".equals(fromDate) || "".equals(toDate) || "".equals(numberOfGuests))
-            {
-                throw new IllegalArgumentException("input is not valid");
-            }
-
             List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
-            BookingDTO createdBooking = bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
+            bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
 
             eventPublisher.publishEvent(new BookingCreatedEvent(
-                    createdBooking.getBookingId(),
-                    createdBooking.getCustomer(),
-                    createdBooking.getFromDate(),
-                    createdBooking.getToDate(),
-                    createdBooking.getRooms()
+                    new BookingId(),
+                    customerName,
+                    LocalDate.parse(fromDate),
+                    LocalDate.parse(toDate),
+                    freeRooms
             ));
 
-        } catch (NotEnoughRoomsException | DateTimeParseException | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        } catch (NotEnoughRoomsException e) {
             e.printStackTrace();
-            return new ModelAndView("redirect:"+"bookingFailed.html");
+            redirectAttributes.addFlashAttribute("bookingCreated", e.getMessage());
+            return new RedirectView("bookingFailed");
         }
 
-        return new ModelAndView("redirect:"+"/");
+        redirectAttributes.addFlashAttribute("bookingCreated", "booking successfully created");
+        return new RedirectView("/");
     }
 }

@@ -23,8 +23,6 @@ public class BookingCreatedEvent extends Event {
         this.rooms = rooms;
 
         this.timestamp = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
-        this.uri = "/bookingCreated/";
-        this.className = "BookingCreatedEvent.class";
     }
 
     public BookingId getBookingId() {
@@ -45,16 +43,5 @@ public class BookingCreatedEvent extends Event {
 
     public List<String> getRooms() {
         return rooms;
-    }
-
-    @Override
-    public String toString() {
-        return "BookingCreatedEvent{" +
-                "bookingId=" + bookingId +
-                ", customer='" + customer + '\'' +
-                ", fromDate=" + fromDate +
-                ", toDate=" + toDate +
-                ", rooms=" + rooms +
-                '}';
     }
 }
