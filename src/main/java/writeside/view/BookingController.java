@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import readside.application.RoomServiceReadImpl;
 import readside.application.api.RoomServiceRead;
 import writeside.application.api.BookingServiceWrite;
 
@@ -19,8 +20,7 @@ public class BookingController {
     @Autowired
     private BookingServiceWrite bookingServiceWrite;
 
-    @Autowired
-    private RoomServiceRead roomServiceRead;
+    private RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
 
     @GetMapping("/")
     public ModelAndView startPage(Model model) {
