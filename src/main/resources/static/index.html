@@ -2,24 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 01 - CQRS</title>
+    <title>Create Booking</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h1>Test Page</h1>
+<h1>Create Booking</h1>
 
 <form action="/bookRoom" method="post">
-    <label for="customerName">Customer Name:</label>
-    <input type="text" id="customerName" name="customerName"><br>
+    <div class="form-group">
+        <label for="customerName">Customer Name</label>
+        <input id="customerName" class="form-control" name="customerName" type="text">
+    </div>
 
-    <label for="fromDate">From Date:</label>
-    <input type="date" id="fromDate" name="fromDate"><br>
+    <div class="form-group">
+        <label for="fromDate">From Date:</label>
+        <input id="fromDate" class="form-control" name="fromDate" type="date"><br>
+    </div>
 
-    <label for="toDate">To Date:</label>
-    <input type="date" id="toDate" name="toDate"><br>
+    <div class="form-group">
+        <label for="toDate">To Date:</label>
+        <input id="toDate" class="form-control" name="toDate" type="date"><br>
+    </div>
 
-    <label for="numberOfGuests">Number of Guests:</label>
-    <input type="number" id="numberOfGuests" name="numberOfGuests"><br>
+    <div class="form-group">
+        <label for="numberOfGuests">Number of Guests:</label>
+        <input id="numberOfGuests" class="form-control" name="numberOfGuests" type="number"><br>
+    </div>
 
     <input type="submit" value="Submit">
 </form>

@@ -16,7 +16,6 @@ public class EventRestController {
     @PostMapping(value = "/event", consumes = "application/json", produces = "application/json")
     public boolean addEvent(@RequestBody Event event) {
         // TODO: process event in repository
-        System.out.println("TEST");
         repository.processEvent(event);
         System.out.println("Event received: " + event);
         return true;
@@ -24,6 +23,6 @@ public class EventRestController {
 
     @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public void bookRoom(@RequestBody Event event) {
-        System.out.println("TEST");
+        System.out.println("EventRestController: /bookingCreated");
     }
 }

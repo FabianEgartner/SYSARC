@@ -1,5 +1,6 @@
 package writeside.view;
 
+import eventside.domain.BookingCreatedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,9 @@ import readside.application.RoomServiceReadImpl;
 import readside.application.api.BookingServiceRead;
 import readside.application.api.RoomServiceRead;
 import readside.domain.NotEnoughRoomsException;
+import writeside.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
+import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,6 +32,8 @@ public class BookingController {
 
     private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
 
+    private final EventPublisher eventPublisher = new EventPublisher();
+
     @GetMapping("/")
     public ModelAndView startPage() {
         return new ModelAndView("index.html");
@@ -42,23 +47,23 @@ public class BookingController {
             @RequestParam("numberOfGuests") String numberOfGuests) {
 
         try {
+
             List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
             bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
+
+            eventPublisher.publishEvent(new BookingCreatedEvent(
+                    new BookingId(),
+                    customerName,
+                    LocalDate.parse(fromDate),
+                    LocalDate.parse(toDate),
+                    freeRooms
+            ));
+
         } catch (NotEnoughRoomsException e) {
             e.printStackTrace();
             return new RedirectView("bookingFailed");
         }
 
-        return new RedirectView("bookingCreated");
-    }
-
-    @GetMapping("bookingCreated")
-    public ModelAndView bookingCreated() {
-        return new ModelAndView("booking/bookingCreated.html");
-    }
-
-    @GetMapping("bookingFailed")
-    public ModelAndView bookingFailed() {
-        return new ModelAndView("booking/bookingFailed.html");
+        return new RedirectView("/");
     }
 }
