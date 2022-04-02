@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import readside.application.api.BookingServiceRead;
 import readside.application.dto.BookingDTO;
 import readside.domain.api.BookingRepositoryRead;
+import readside.infrastructure.BookingRepositoryReadImpl;
 import writeside.domain.Booking;
 
 import java.time.LocalDate;
@@ -13,8 +14,7 @@ import java.util.List;
 @Component
 public class BookingServiceReadImpl implements BookingServiceRead {
 
-    @Autowired
-    private BookingRepositoryRead bookingRepositoryRead;
+    private final BookingRepositoryRead bookingRepositoryRead = new BookingRepositoryReadImpl();
 
     @Override
     public List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate) {

@@ -40,12 +40,12 @@ public class RoomRepositoryReadImpl implements RoomRepositoryRead {
 
         for (AvailableRoom availableRoom : availableRooms)
         {
-            if (availableRoom.isFree(fromDate, toDate) && availableRoom.getNumberOfBeds() <= numberOfBedsNeeded) {
+            if (availableRoom.isFree(fromDate, toDate)) {
                 freeRooms.add(availableRoom.getRoomNumber());
                 numberOfBedsNeeded -= availableRoom.getNumberOfBeds();
             }
 
-            if (numberOfBedsNeeded == 0)
+            if (numberOfBedsNeeded <= 0)
                 break;
 
         }
