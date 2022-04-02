@@ -1,7 +1,7 @@
 package readside.infrastructure;
 
 import readside.domain.AvailableRoom;
-import readside.domain.api.RoomRepository;
+import readside.domain.api.RoomRepositoryRead;
 import writeside.domain.Room;
 
 import java.time.LocalDate;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class RoomRepositoryImpl implements RoomRepository {
+public class RoomRepositoryReadImpl implements RoomRepositoryRead {
 
     private final List<AvailableRoom> availableRooms = new ArrayList<>();
 
-    public RoomRepositoryImpl() {
+    public RoomRepositoryReadImpl() {
         availableRooms.add(new AvailableRoom("100", 1));
         availableRooms.add(new AvailableRoom("101", 1));
         availableRooms.add(new AvailableRoom("102", 1));
@@ -31,20 +31,24 @@ public class RoomRepositoryImpl implements RoomRepository {
     }
 
     @Override
-    public List<Room> getFreeRooms(LocalDate fromDate, LocalDate toDate, int numberOfGuests) {
+    public List<String> getFreeRooms(LocalDate fromDate, LocalDate toDate, int numberOfGuests) {
 
-        List<Room> freeRooms = new ArrayList<>();
-        int numberOfGuestsTmp = numberOfGuests;
+        List<String> freeRooms = new ArrayList<>();
+        int numberOfBedsNeeded = numberOfGuests;
 
         for (AvailableRoom availableRoom : availableRooms)
         {
-            if (availableRoom.isFree(fromDate, toDate) && availableRoom.getNumberOfBeds() <= numberOfGuestsTmp) {
-                freeRooms.add(new Room(availableRoom.getRoomNumber(), availableRoom.getNumberOfBeds()));
-                numberOfGuestsTmp = numberOfGuestsTmp - availableRoom.getNumberOfBeds();
+            if (availableRoom.isFree(fromDate, toDate) && availableRoom.getNumberOfBeds() <= numberOfBedsNeeded) {
+                freeRooms.add(availableRoom.getRoomNumber());
+                numberOfBedsNeeded -= availableRoom.getNumberOfBeds();
             }
+
+            if (numberOfBedsNeeded == 0)
+                break;
+
         }
 
-        if (numberOfGuestsTmp > 0) {
+        if (numberOfBedsNeeded > 0) {
             return Collections.emptyList();
         }
 

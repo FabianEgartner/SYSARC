@@ -5,7 +5,7 @@ import writeside.domain.valueobjects.BookingId;
 
 import java.util.Optional;
 
-public interface BookingRepository {
+public interface BookingRepositoryWrite {
 
     void createBooking(Booking booking);
     void cancelBooking(BookingId id);

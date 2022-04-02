@@ -1,7 +1,6 @@
 package readside.application.dto;
 
 import writeside.domain.Room;
-import writeside.domain.valueobjects.RoomStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;

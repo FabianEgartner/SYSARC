@@ -2,19 +2,18 @@ package writeside.infrastructure;
 
 import org.springframework.stereotype.Component;
 import writeside.domain.Room;
-import writeside.domain.valueobjects.RoomStatus;
-import writeside.domain.api.RoomRepository;
+import writeside.domain.api.RoomRepositoryWrite;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
-public class RoomRepositoryImpl implements RoomRepository {
+public class RoomRepositoryWriteImpl implements RoomRepositoryWrite {
 
     private final List<Room> rooms = new ArrayList<>();
 
-    public RoomRepositoryImpl() {
+    public RoomRepositoryWriteImpl() {
         rooms.add(new Room("100", 1));
         rooms.add(new Room("101", 1));
         rooms.add(new Room("102", 1));

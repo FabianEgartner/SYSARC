@@ -2,7 +2,7 @@ package eventside;
 
 import eventside.domain.Event;
 import org.springframework.stereotype.Component;
-import readside.domain.api.BookingRepository;
+import readside.domain.api.BookingRepositoryRead;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class EventRepository {
 
     private final List<Event> events = new ArrayList<>();
 
-    private BookingRepository bookingRepository;
+    private BookingRepositoryRead bookingRepository;
 
     public void processEvent(Event event) {
         events.add(event);

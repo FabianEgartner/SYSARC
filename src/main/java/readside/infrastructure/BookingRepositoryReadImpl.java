@@ -1,13 +1,13 @@
 package readside.infrastructure;
 
-import readside.domain.api.BookingRepository;
+import readside.domain.api.BookingRepositoryRead;
 import writeside.domain.Booking;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookingRepositoryImpl implements BookingRepository {
+public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
     private final List<Booking> bookings = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class BookingRepositoryImpl implements BookingRepository {
 
         for (Booking booking : bookings)
         {
-            if(booking.getFromDate().isAfter(fromDate.minusDays(1)) && booking.getToDate().isBefore(toDate.plusDays(1)))
+            if (booking.getFromDate().isAfter(fromDate.minusDays(1)) && booking.getToDate().isBefore(toDate.plusDays(1)))
                 bookingsInPeriod.add(booking);
         }
 

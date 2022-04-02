@@ -4,7 +4,7 @@ import writeside.domain.Room;
 
 import java.util.Optional;
 
-public interface RoomRepository {
+public interface RoomRepositoryWrite {
 
     Optional<Room> getRoom(String roomNumber);
 }
