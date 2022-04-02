@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import readside.application.BookingServiceReadImpl;
 import readside.application.RoomServiceReadImpl;
+import readside.application.api.BookingServiceRead;
 import readside.application.api.RoomServiceRead;
 import readside.domain.NotEnoughRoomsException;
 import writeside.application.api.BookingServiceWrite;
@@ -24,7 +26,7 @@ public class BookingController {
     private final RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
 
     @GetMapping("/")
-    public ModelAndView startPage(Model model) {
+    public ModelAndView startPage() {
         return new ModelAndView("index.html");
     }
 
