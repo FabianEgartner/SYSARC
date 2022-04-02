@@ -22,7 +22,7 @@ public class EventRestController {
         return true;
     }
 
-    @PostMapping(value = "/bookRoom", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public void bookRoom(@RequestBody Event event) {
         System.out.println("TEST");
     }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import readside.application.BookingServiceReadImpl;
 import readside.application.RoomServiceReadImpl;
 import readside.application.api.BookingServiceRead;
@@ -26,34 +27,38 @@ public class BookingController {
 
     private final RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
 
-    private BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
+    private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
 
     @GetMapping("/")
-    public ModelAndView startPage(Model model) {
-        System.out.println("Test");
+    public ModelAndView startPage() {
         return new ModelAndView("index.html");
     }
 
     @PostMapping("/bookRoom")
-    public ModelAndView submitBooking(
+    public RedirectView submitBooking(
             @RequestParam("customerName") String customerName,
             @RequestParam("fromDate") String fromDate,
             @RequestParam("toDate") String toDate,
             @RequestParam("numberOfGuests") String numberOfGuests) {
 
-        System.out.println(numberOfGuests);
-
         try {
             List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
-            System.out.println("Rooms: " + freeRooms);
             bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
-
         } catch (NotEnoughRoomsException e) {
             e.printStackTrace();
+            return new RedirectView("bookingFailed");
         }
 
-        bookingServiceRead.getBookings(LocalDate.parse("2022-04-02"), LocalDate.parse("2022-04-20"));
+        return new RedirectView("bookingCreated");
+    }
 
-        return new ModelAndView("index.html");
+    @GetMapping("bookingCreated")
+    public ModelAndView bookingCreated() {
+        return new ModelAndView("booking/bookingCreated.html");
+    }
+
+    @GetMapping("bookingFailed")
+    public ModelAndView bookingFailed() {
+        return new ModelAndView("booking/bookingFailed.html");
     }
 }
