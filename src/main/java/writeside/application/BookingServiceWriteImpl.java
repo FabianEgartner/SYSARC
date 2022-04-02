@@ -22,30 +22,10 @@ public class BookingServiceWriteImpl implements BookingServiceWrite {
     private RoomRepositoryRead roomRepository = new RoomRepositoryReadImpl();
 
     @Override
-    public boolean bookRoom(String customer, int numberOfGuests, LocalDate fromDate, LocalDate toDate) {
+    public void bookRoom(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate) {
 
-//        try
-//        {
-//            for (String roomNumber : roomNumbers)
-//            {
-//                Optional<Room> optRoom = roomRepository.getRoom(roomNumber);
-//
-//                if (optRoom.isEmpty())
-//                    throw new IllegalArgumentException("room does not exist or is already occupied");
-//            }
-//        }
-//        catch (IllegalArgumentException e)
-//        {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//            return false;
-//        }
-
-        List<String> freeRooms = roomRepository.getFreeRooms(fromDate, toDate, numberOfGuests);
-
-        Booking booking = new Booking(new BookingId(), customer, freeRooms, fromDate, toDate);
+        Booking booking = new Booking(new BookingId(), customer, bookedRooms, fromDate, toDate);
         bookingRepository.createBooking(booking);
-        return true;
     }
 
     @Override

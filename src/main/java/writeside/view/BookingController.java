@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import readside.application.RoomServiceReadImpl;
 import readside.application.api.RoomServiceRead;
+import readside.domain.NotEnoughRoomsException;
 import writeside.application.api.BookingServiceWrite;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class BookingController {
     @Autowired
     private BookingServiceWrite bookingServiceWrite;
 
-    private RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
+    private final RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
 
     @GetMapping("/")
     public ModelAndView startPage(Model model) {
@@ -34,12 +35,12 @@ public class BookingController {
             @RequestParam("toDate") String toDate,
             @RequestParam("numberOfGuests") String numberOfGuests) {
 
-        List<String> rooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
+        try {
+            List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
+            bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
 
-        // TODO: handle situation where not enough rooms are available
-        if (!rooms.isEmpty()) {
-            // bookingService.createBooking(new Booking(new BookingId(), customerName, LocalDate.parse(fromDate), LocalDate.parse(toDate)));
-            bookingServiceWrite.bookRoom(customerName, Integer.parseInt(numberOfGuests), LocalDate.parse(fromDate), LocalDate.parse(toDate));
+        } catch (NotEnoughRoomsException e) {
+            e.printStackTrace();
         }
 
         return new ModelAndView("index.html");
