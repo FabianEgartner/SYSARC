@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface BookingService {
 
-    boolean bookRoom(String customer, List<String> roomNumber, LocalDate fromDate, LocalDate toDate);
+    boolean bookRoom(String customer, int numberOfGuests, LocalDate fromDate, LocalDate toDate);
     boolean cancelBooking(BookingId id);
 }

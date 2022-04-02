@@ -10,10 +10,12 @@ public class AvailableRoom {
     private final int numberOfBeds;
     private final List<OccupiedPeriod> occupiedPeriods = new ArrayList<>();
 
+
     public AvailableRoom(String roomNumber, int numberOfBeds) {
         this.roomNumber = roomNumber;
         this.numberOfBeds = numberOfBeds;
     }
+
 
     public String getRoomNumber() {
         return roomNumber;
@@ -28,8 +30,8 @@ public class AvailableRoom {
     }
 
     public boolean isFree(LocalDate fromDate, LocalDate toDate) {
-        for (OccupiedPeriod period : occupiedPeriods) {
-            if (toDate.isAfter(period.getFromDate().plusDays(1)) && fromDate.isBefore(period.getToDate()))
+        for (OccupiedPeriod occupiedPeriod : occupiedPeriods) {
+            if (toDate.isAfter(occupiedPeriod.getFromDate()) && fromDate.isBefore(occupiedPeriod.getToDate()))
                 return false;
         }
 
