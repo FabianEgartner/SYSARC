@@ -16,14 +16,11 @@ import java.util.List;
 @Controller
 public class BookingController {
 
-    // TODO: shouldn't this be services instead of repositories?
-
     @Autowired
     private BookingServiceWrite bookingServiceWrite;
 
     @Autowired
     private RoomServiceRead roomServiceRead;
-
 
     @GetMapping("/")
     public ModelAndView startPage(Model model) {

@@ -1,5 +1,6 @@
 package readside.infrastructure;
 
+import org.springframework.stereotype.Component;
 import readside.domain.api.BookingRepositoryRead;
 import writeside.domain.Booking;
 
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
     private final List<Booking> bookings = new ArrayList<>();

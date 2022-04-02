@@ -6,7 +6,6 @@ import writeside.domain.Booking;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
 public interface BookingRepositoryRead {
 
     void onWriteEvent();

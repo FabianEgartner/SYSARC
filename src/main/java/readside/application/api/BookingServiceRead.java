@@ -6,7 +6,6 @@ import readside.application.dto.BookingDTO;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
 public interface BookingServiceRead {
 
     List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate);

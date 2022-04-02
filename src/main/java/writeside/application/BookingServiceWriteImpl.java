@@ -1,6 +1,7 @@
 package writeside.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import writeside.application.api.BookingServiceWrite;
 import writeside.domain.Booking;
 import writeside.domain.api.BookingRepositoryWrite;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class BookingServiceWriteImpl implements BookingServiceWrite {
 
     @Autowired
