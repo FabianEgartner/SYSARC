@@ -1,6 +1,7 @@
 package readside.infrastructure;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import readside.domain.AvailableRoom;
 import readside.domain.api.RoomRepositoryRead;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Component
+@Repository
 public class RoomRepositoryReadImpl implements RoomRepositoryRead {
 
     private final List<AvailableRoom> availableRooms = new ArrayList<>();
@@ -79,5 +80,10 @@ public class RoomRepositoryReadImpl implements RoomRepositoryRead {
         }
 
         return freeRooms;
+    }
+
+    @Override
+    public List<AvailableRoom> getAvailableRooms() {
+        return availableRooms;
     }
 }

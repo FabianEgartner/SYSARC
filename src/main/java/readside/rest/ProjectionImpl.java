@@ -5,15 +5,23 @@ import eventside.domain.BookingCreatedEvent;
 import eventside.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import readside.domain.AvailableRoom;
+import readside.domain.OccupiedPeriod;
 import readside.domain.api.BookingRepositoryRead;
+import readside.domain.api.RoomRepositoryRead;
 import readside.rest.api.Projection;
 import writeside.domain.Booking;
+
+import java.util.List;
 
 @Component
 public class ProjectionImpl implements Projection {
 
     @Autowired
     BookingRepositoryRead bookingRepositoryRead;
+
+    @Autowired
+    RoomRepositoryRead roomRepositoryRead;
 
     @Override
     public void processEvent(Event event) {
@@ -22,13 +30,26 @@ public class ProjectionImpl implements Projection {
 
             BookingCreatedEvent bookingCreatedEvent = (BookingCreatedEvent) event;
 
-            bookingRepositoryRead.addBooking(new Booking(
+
+            List<Booking> bookings = bookingRepositoryRead.getAllBookings();
+
+            bookings.add(new Booking(
                     bookingCreatedEvent.getBookingId(),
                     bookingCreatedEvent.getCustomer(),
                     bookingCreatedEvent.getRooms(),
                     bookingCreatedEvent.getFromDate(),
                     bookingCreatedEvent.getToDate()
             ));
+
+            List<AvailableRoom> availableRooms = roomRepositoryRead.getAvailableRooms();
+
+            for (AvailableRoom availableRoom : availableRooms)
+            {
+                if (bookingCreatedEvent.getRooms().contains(availableRoom.getRoomNumber()))
+                {
+                    availableRoom.addOccupiedPeriod(new OccupiedPeriod(bookingCreatedEvent.getFromDate(), bookingCreatedEvent.getToDate()));
+                }
+            }
 
         } else if (event instanceof BookingCancelledEvent) {
 

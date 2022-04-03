@@ -18,7 +18,7 @@ public class BookingServiceReadImpl implements BookingServiceRead {
 
     @Override
     public List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate) {
-        List<Booking> bookings = bookingRepositoryRead.getBookings(fromDate, toDate);
+        List<Booking> bookings = bookingRepositoryRead.getBookingsByPeriod(fromDate, toDate);
         return BookingDTO.fromBookings(bookings);
     }
 

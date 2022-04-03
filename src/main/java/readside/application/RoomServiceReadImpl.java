@@ -2,6 +2,7 @@ package readside.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import readside.application.api.RoomServiceRead;
 import readside.domain.NotEnoughRoomsException;
 import readside.domain.api.RoomRepositoryRead;
@@ -14,7 +15,7 @@ import java.util.List;
 public class RoomServiceReadImpl implements RoomServiceRead {
 
     @Autowired
-    private RoomRepositoryRead roomRepositoryRead;
+    private RoomRepositoryRead roomRepositoryRead = new RoomRepositoryReadImpl();
 
     @Override
     public List<String> getFreeRooms(LocalDate fromDate, LocalDate toDate, int numberOfGuests) throws NotEnoughRoomsException {
