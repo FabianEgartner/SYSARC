@@ -1,4 +1,4 @@
-package readside.rest.api;
+package readside.domain.api;
 
 import eventside.domain.Event;
 

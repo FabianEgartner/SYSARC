@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Booking Overview</title>
+    <title>Room Overview</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -19,8 +19,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/">Create Booking</a>
-            <a class="nav-item nav-link active" href="bookingOverview">Booking Overview</a>
-            <a class="nav-item nav-link" href="roomOverview">Room Overview</a>
+            <a class="nav-item nav-link" href="bookingOverview">Booking Overview</a>
+            <a class="nav-item nav-link active" href="roomOverview">Room Overview</a>
         </div>
     </div>
 </nav>
@@ -28,27 +28,23 @@
 <!-- container -->
 <div class="container">
     <div class="text-center mt-5">
-        <h2>Booking Overview</h2>
+        <h2>Room Overview</h2>
 
-        <form action="/allBookingsByPeriod" method="post">
+        <form action="/freeRooms" method="post">
             <label for="fromDate">From Date</label>
             <input type="date" id="fromDate" name="fromDate">
 
             <label for="toDate">To Date</label>
             <input type="date" id="toDate" name="toDate">
 
+            <label for="numberOfGuests">Number of Guests</label>
+            <input type="number" id="numberOfGuests" name="numberOfGuests">
+
             <button type="submit">Search</button>
         </form>
 
-        <form action="/allBookings" method="post">
-            <button type="submit">All Bookings</button>
-        </form>
-
-        <div th:each="booking, iter: ${bookings}">
-            <span th:text="${booking.bookingId.bookingId}"></span>
-            <span th:text="${booking.customer}"></span>
-            <span th:text="${booking.fromDate}"></span>
-            <span th:text="${booking.toDate}"></span>
+        <div th:each="room, iter: ${rooms}">
+            <span th:text="${room}"></span>
         </div>
     </div>
 </div>
