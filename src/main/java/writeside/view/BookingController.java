@@ -76,6 +76,11 @@ public class BookingController {
             @RequestParam("bookingId") String bookingId,
             RedirectAttributes redirectAttributes) {
 
+        if ("".equals(bookingId) || bookingId.length() != 36) {
+            redirectAttributes.addFlashAttribute("bookingCancelled", "invalid");
+            return new RedirectView("bookingOverview");
+        }
+
         BookingId id = new BookingId(bookingId);
 
         if (!bookingServiceWrite.cancelBooking(id)) {
@@ -91,7 +96,6 @@ public class BookingController {
 
     @GetMapping("/bookingOverview")
     public ModelAndView bookingOverview(Model model) {
-
         return new ModelAndView("bookingOverview");
     }
 

@@ -35,6 +35,9 @@
         <div th:if="*{bookingCancelled.contains('failure')}" class="alert alert-danger text-center mt-3" role="alert">
             Cancel booking failed!
         </div>
+        <div th:if="*{bookingCancelled.contains('invalid')}" class="alert alert-danger text-center mt-3" role="alert">
+            Cancel booking failed! UUID is not valid!
+        </div>
     </div>
 
     <div class="text-center mt-5">

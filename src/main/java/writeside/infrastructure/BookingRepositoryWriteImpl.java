@@ -12,7 +12,7 @@ import java.util.Optional;
 @Component
 public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
 
-    private final List<Booking> bookings = new ArrayList<>();
+    private static final List<Booking> bookings = new ArrayList<>();
     private static BookingRepositoryWriteImpl instance;
 
     public static BookingRepositoryWriteImpl getInstance()
@@ -36,11 +36,11 @@ public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
     @Override
     public boolean cancelBooking(BookingId bookingId) {
 
-        for (int i = 0; i < bookings.size(); i++)
+        for (int i = 0; i < BookingRepositoryWriteImpl.bookings.size(); i++)
         {
-            if (bookings.get(i).getBookingId().equals(bookingId))
+            if (BookingRepositoryWriteImpl.bookings.get(i).getBookingId().equals(bookingId))
             {
-                bookings.remove(i);
+                BookingRepositoryWriteImpl.bookings.remove(i);
                 return true;
             }
         }
@@ -51,7 +51,7 @@ public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
     @Override
     public Optional<Booking> getBooking(BookingId bookingId) {
 
-        for (Booking booking : bookings)
+        for (Booking booking : BookingRepositoryWriteImpl.bookings)
         {
             if (booking.getBookingId().equals(bookingId))
                 return Optional.of(booking);

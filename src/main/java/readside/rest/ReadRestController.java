@@ -19,11 +19,11 @@ import java.util.List;
 public class ReadRestController {
 
     @Autowired
-    Projection projection;
+    private Projection projection;
 
-    BookingRepositoryRead bookingRepositoryRead = BookingRepositoryReadImpl.getInstance();
+    private BookingRepositoryRead bookingRepositoryRead = BookingRepositoryReadImpl.getInstance();
 
-    RoomRepositoryRead roomRepositoryRead = RoomRepositoryReadImpl.getInstance();
+    private RoomRepositoryRead roomRepositoryRead = RoomRepositoryReadImpl.getInstance();
 
     @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public boolean bookingCreated(@RequestBody BookingCreatedEvent event) {
