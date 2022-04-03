@@ -65,6 +65,8 @@ public class BookingController {
             return new RedirectView("/");
         }
 
+        bookingServiceRead.getAllBookings();
+
         redirectAttributes.addFlashAttribute("bookingCreated", "success");
         return new RedirectView("/");
     }

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BookingServiceRead {
 
-    List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate);
+    List<BookingDTO> getBookingsByPeriod(LocalDate fromDate, LocalDate toDate);
+    List<BookingDTO> getAllBookings();
 
 }
