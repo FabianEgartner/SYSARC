@@ -69,4 +69,9 @@ public class BookingController {
         redirectAttributes.addFlashAttribute("bookingCreated", "success");
         return new RedirectView("/");
     }
+
+    @GetMapping("/bookingOverview")
+    public ModelAndView bookingOverview() {
+        return new ModelAndView("bookingOverview");
+    }
 }

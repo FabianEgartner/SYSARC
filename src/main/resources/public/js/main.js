@@ -1,18 +1,18 @@
 $(document).ready(function() {
-    $("#fromDate").val(getFormattedDate(today()));
-    $("#toDate").val(getFormattedDate(tomorrow()));
+    $("#fromDate").val(getFormattedDate(fromDate()));
+    $("#toDate").val(getFormattedDate(toDate()));
 });
 
-function today() {
+function fromDate() {
     return new Date();
 }
 
-function tomorrow() {
-    let today = new Date();
-    let tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+function toDate() {
+    let fromDate = new Date();
+    let toDate = new Date(fromDate);
+    toDate.setDate(toDate.getDate() + 6);
 
-    return tomorrow;
+    return toDate;
 }
 
 function getFormattedDate(date) {
