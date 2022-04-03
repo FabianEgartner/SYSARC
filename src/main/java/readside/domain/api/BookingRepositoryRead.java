@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface BookingRepositoryRead {
 
-    void onWriteEvent();
     List<Booking> getBookings(LocalDate fromDate, LocalDate toDate);
-
 }

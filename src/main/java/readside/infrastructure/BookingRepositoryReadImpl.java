@@ -1,6 +1,7 @@
 package readside.infrastructure;
 
 import org.springframework.stereotype.Component;
+import readside.application.ReadSideEventPublisher;
 import readside.domain.api.BookingRepositoryRead;
 import writeside.domain.Booking;
 
@@ -13,9 +14,17 @@ public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
     private final List<Booking> bookings = new ArrayList<>();
 
-    @Override
-    public void onWriteEvent() {
+    private ReadSideEventPublisher readSideEventPublisher = new ReadSideEventPublisher();
 
+    public BookingRepositoryReadImpl()
+    {
+//        try {
+//            readSideEventPublisher.publishEvent(new SubscriptionEvent(event -> System.out.println("BOOKING_REPO_READ_INFORMED")));
+//        } catch (Exception e)
+//        {
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        }
     }
 
     @Override

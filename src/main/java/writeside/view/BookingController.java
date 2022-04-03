@@ -20,6 +20,7 @@ import writeside.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
 import writeside.domain.valueobjects.BookingId;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;

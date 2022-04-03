@@ -50,7 +50,7 @@ public class BookingCreatedEvent extends Event {
     @Override
     public String toString() {
         return "BookingCreatedEvent{" +
-                "bookingId=" + bookingId +
+                "bookingId=" + bookingId.getBookingId() +
                 ", customer='" + customer + '\'' +
                 ", fromDate=" + fromDate +
                 ", toDate=" + toDate +
