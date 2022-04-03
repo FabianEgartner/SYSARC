@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
-    private final List<Booking> bookings = new ArrayList<>();
+    private static final List<Booking> bookings = new ArrayList<>();
     private static BookingRepositoryReadImpl instance;
 
     public static BookingRepositoryReadImpl getInstance()
@@ -44,6 +44,6 @@ public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
     @Override
     public List<Booking> getAllBookings() {
-        return this.bookings;
+        return BookingRepositoryReadImpl.bookings;
     }
 }

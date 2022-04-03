@@ -1,19 +1,25 @@
 package writeside.view;
 
 import eventside.domain.BookingCreatedEvent;
+import eventside.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import reactor.core.publisher.Mono;
 import readside.application.BookingServiceReadImpl;
 import readside.application.RoomServiceReadImpl;
+import readside.application.api.BookingServiceRead;
 import readside.application.api.RoomServiceRead;
 import readside.application.dto.BookingDTO;
 import readside.domain.NotEnoughRoomsException;
+import writeside.domain.Booking;
 import writeside.domain.api.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
 
@@ -31,7 +37,7 @@ public class BookingController {
 
     private final RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
 
-    private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
+    private final BookingServiceRead bookingServiceRead = new BookingServiceReadImpl();
 
 
     @GetMapping("/")
@@ -65,7 +71,38 @@ public class BookingController {
             return new RedirectView("/");
         }
 
-        bookingServiceRead.getAllBookings();
+        WebClient webClient = WebClient.create("http://localhost:8082");
+        List bookings = webClient.get()
+                .uri("/allBookings/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(List.class)
+                .block();
+
+        System.out.println("BOOKINGS:" + bookings);
+
+//        WebClient webClient2 = WebClient.create("http://localhost:8082");
+//        webClient2.get()
+//                .uri("/allBookingsByPeriod/?fromDate=" + fromDate + "&toDate=" + toDate)
+//                //.contentType(MediaType.APPLICATION_JSON)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(Boolean.class)
+//                .block();
+
+//        String json = webClient.get()
+//                .uri("/allBookings/")
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .block();
+
+//        System.out.println(json);
+
+        try {
+            roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
+        } catch (NotEnoughRoomsException e) {
+            e.printStackTrace();
+        }
 
         redirectAttributes.addFlashAttribute("bookingCreated", "success");
         return new RedirectView("/");
