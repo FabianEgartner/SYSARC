@@ -12,7 +12,5 @@ public class BookingCancelledEvent extends Event {
         // todo: constructor
 
         this.timestamp = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
-        this.uri = "/bookingCancelled/";
-        this.className = "BookingCancelledEvent.class";
     }
 }
