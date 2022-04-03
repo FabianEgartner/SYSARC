@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface BookingServiceWrite {
 
-    BookingDTO bookRoom(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate);
+    BookingDTO createBooking(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate);
+
     boolean cancelBooking(BookingId id);
+
 }

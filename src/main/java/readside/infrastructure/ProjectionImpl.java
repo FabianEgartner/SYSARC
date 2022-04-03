@@ -55,7 +55,14 @@ public class ProjectionImpl implements Projection {
 
             BookingCancelledEvent bookingCancelledEvent = (BookingCancelledEvent) event;
 
-            // TODO
+            List<Booking> bookings = bookingRepositoryRead.getAllBookings();
+
+            for (int i = 0; i < bookings.size(); i++) {
+
+                if (bookings.get(i).getBookingId().equals(bookingCancelledEvent.getBookingId())) {
+                    bookings.remove(i);
+                }
+            }
 
         }
 

@@ -1,5 +1,6 @@
 package writeside.view;
 
+import eventside.domain.BookingCancelledEvent;
 import eventside.domain.BookingCreatedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,7 +20,6 @@ import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class BookingController {
@@ -57,7 +57,7 @@ public class BookingController {
             return new RedirectView("/");
         }
 
-        BookingDTO bookingDTO = bookingServiceWrite.bookRoom(customerName, rooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
+        BookingDTO bookingDTO = bookingServiceWrite.createBooking(customerName, rooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
 
         eventPublisher.publishEvent(new BookingCreatedEvent(
                 bookingDTO.getBookingId(),
@@ -72,10 +72,21 @@ public class BookingController {
     }
 
     @PostMapping("/cancelBooking")
-    public RedirectView cancelBooking(@RequestParam("bookingId") String bookingId) {
-        bookingServiceWrite.cancelBooking(new BookingId(bookingId));
+    public RedirectView cancelBooking(
+            @RequestParam("bookingId") String bookingId,
+            RedirectAttributes redirectAttributes) {
 
-        return new RedirectView("/");
+        BookingId id = new BookingId(bookingId);
+
+        if (!bookingServiceWrite.cancelBooking(id)) {
+            redirectAttributes.addFlashAttribute("bookingCancelled", "failure");
+            return new RedirectView("bookingOverview");
+        }
+
+        eventPublisher.publishEvent(new BookingCancelledEvent(id));
+
+        redirectAttributes.addFlashAttribute("bookingCancelled", "success");
+        return new RedirectView("bookingOverview");
     }
 
     @GetMapping("/bookingOverview")

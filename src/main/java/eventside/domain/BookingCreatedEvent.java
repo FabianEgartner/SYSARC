@@ -1,5 +1,6 @@
 package eventside.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
@@ -15,7 +16,9 @@ public class BookingCreatedEvent extends Event {
     private final LocalDate toDate;
     private final List<String> rooms;
 
+    @JsonCreator
     public BookingCreatedEvent(BookingId bookingId, String customer, LocalDate fromDate, LocalDate toDate, List<String> rooms) {
+
         this.bookingId = bookingId;
         this.customer = customer;
         this.fromDate = fromDate;

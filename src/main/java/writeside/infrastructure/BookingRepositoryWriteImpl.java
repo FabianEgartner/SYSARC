@@ -1,8 +1,6 @@
 package writeside.infrastructure;
 
 import org.springframework.stereotype.Component;
-import readside.infrastructure.BookingRepositoryReadImpl;
-import readside.infrastructure.RoomRepositoryReadImpl;
 import writeside.domain.Booking;
 import writeside.domain.api.BookingRepositoryWrite;
 import writeside.domain.valueobjects.BookingId;
@@ -36,15 +34,18 @@ public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
     }
 
     @Override
-    public void cancelBooking(BookingId bookingId) {
+    public boolean cancelBooking(BookingId bookingId) {
+
         for (int i = 0; i < bookings.size(); i++)
         {
             if (bookings.get(i).getBookingId().equals(bookingId))
             {
                 bookings.remove(i);
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 
     @Override

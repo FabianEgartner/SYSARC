@@ -67,8 +67,8 @@
                 <tr th:each="booking, iter: ${bookings}">
                     <td th:text="${booking.bookingId.bookingId}"></td>
                     <td th:text="${booking.customer}"></td>
-                    <td th:text="${booking.toDate}"></td>
                     <td th:text="${booking.fromDate}"></td>
+                    <td th:text="${booking.toDate}"></td>
                 </tr>
                 </tbody>
             </table>

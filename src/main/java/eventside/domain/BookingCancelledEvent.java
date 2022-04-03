@@ -1,16 +1,35 @@
 package eventside.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import writeside.domain.valueobjects.BookingId;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class BookingCancelledEvent extends Event {
 
-    // todo: attributes
+    private final BookingId bookingId;
 
-    public BookingCancelledEvent() {
+    @JsonCreator
+    public BookingCancelledEvent(BookingId bookingId) {
 
-        // todo: constructor
+        this.bookingId = bookingId;
 
         this.timestamp = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
+        this.uri = "/bookingCancelled/";
+        this.className = "BookingCancelledEvent.class";
+    }
+
+    // needed by JSON deserialization to construct objects from class
+//    public BookingCancelledEvent() {
+//    }
+
+    public BookingId getBookingId() {
+        return bookingId;
+    }
+
+    @Override
+    public String toString() {
+        return "BookingCancelledEvent{bookingId=" + bookingId.getBookingId() + "}";
     }
 }

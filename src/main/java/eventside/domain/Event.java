@@ -12,9 +12,11 @@ public abstract class Event {
     public long getTimestamp() {
         return timestamp;
     }
+
     public String getUri() {
         return uri;
     }
+
     public String getClassName() {
         return className;
     }

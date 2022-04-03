@@ -8,6 +8,9 @@ import java.util.Optional;
 public interface BookingRepositoryWrite {
 
     void createBooking(Booking booking);
-    void cancelBooking(BookingId id);
+
+    boolean cancelBooking(BookingId id);
+
     Optional<Booking> getBooking(BookingId bookingId);
+
 }
