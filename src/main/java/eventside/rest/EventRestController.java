@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EventRestController {
 
-    @Autowired
-    private EventRepositoryImpl repository;
+    private EventRepositoryImpl repository = EventRepositoryImpl.getInstance();
 
     @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public boolean bookRoom(@RequestBody Event event) {

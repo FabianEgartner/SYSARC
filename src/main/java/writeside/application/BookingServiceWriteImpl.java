@@ -9,6 +9,7 @@ import writeside.domain.Booking;
 import writeside.domain.api.BookingRepositoryWrite;
 import readside.domain.api.RoomRepositoryRead;
 import writeside.domain.valueobjects.BookingId;
+import writeside.infrastructure.BookingRepositoryWriteImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,8 +18,7 @@ import java.util.Optional;
 @Component
 public class BookingServiceWriteImpl implements BookingServiceWrite {
 
-    @Autowired
-    private BookingRepositoryWrite bookingRepository;
+    private BookingRepositoryWrite bookingRepository = BookingRepositoryWriteImpl.getInstance();
 
     @Override
     public BookingDTO bookRoom(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate) {

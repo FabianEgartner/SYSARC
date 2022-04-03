@@ -5,6 +5,7 @@ import readside.domain.AvailableRoom;
 import readside.domain.api.BookingRepositoryRead;
 import writeside.domain.Booking;
 
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,21 @@ import java.util.List;
 @Component
 public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
-    private List<Booking> bookings = new ArrayList<>();
+    private final List<Booking> bookings = new ArrayList<>();
+    private static BookingRepositoryReadImpl instance;
+
+    public static BookingRepositoryReadImpl getInstance()
+    {
+        if (null == BookingRepositoryReadImpl.instance) {
+            new BookingRepositoryReadImpl();
+        }
+
+        return BookingRepositoryReadImpl.instance;
+    }
+
+    private BookingRepositoryReadImpl() {
+        BookingRepositoryReadImpl.instance = this;
+    }
 
     @Override
     public List<Booking> getBookingsByPeriod(LocalDate fromDate, LocalDate toDate) {

@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class BookingServiceReadImpl implements BookingServiceRead {
 
-    private BookingRepositoryRead bookingRepositoryRead = new BookingRepositoryReadImpl();
+    private BookingRepositoryRead bookingRepositoryRead = BookingRepositoryReadImpl.getInstance();
 
     @Override
     public List<BookingDTO> getBookingsByPeriod(LocalDate fromDate, LocalDate toDate) {

@@ -9,6 +9,8 @@ import readside.domain.AvailableRoom;
 import readside.domain.OccupiedPeriod;
 import readside.domain.api.BookingRepositoryRead;
 import readside.domain.api.RoomRepositoryRead;
+import readside.infrastructure.BookingRepositoryReadImpl;
+import readside.infrastructure.RoomRepositoryReadImpl;
 import readside.rest.api.Projection;
 import writeside.domain.Booking;
 
@@ -17,11 +19,9 @@ import java.util.List;
 @Component
 public class ProjectionImpl implements Projection {
 
-    @Autowired
-    BookingRepositoryRead bookingRepositoryRead;
+    BookingRepositoryRead bookingRepositoryRead = BookingRepositoryReadImpl.getInstance();
 
-    @Autowired
-    RoomRepositoryRead roomRepositoryRead;
+    RoomRepositoryRead roomRepositoryRead = RoomRepositoryReadImpl.getInstance();
 
     @Override
     public void processEvent(Event event) {

@@ -14,8 +14,20 @@ import java.util.List;
 public class RoomRepositoryReadImpl implements RoomRepositoryRead {
 
     private final List<AvailableRoom> availableRooms = new ArrayList<>();
+    private static RoomRepositoryReadImpl instance;
 
-    public RoomRepositoryReadImpl() {
+    public static RoomRepositoryReadImpl getInstance()
+    {
+        if (null == RoomRepositoryReadImpl.instance) {
+            new RoomRepositoryReadImpl();
+        }
+
+        return RoomRepositoryReadImpl.instance;
+    }
+
+    private RoomRepositoryReadImpl() {
+        RoomRepositoryReadImpl.instance = this;
+
         availableRooms.add(new AvailableRoom("100", 1));
         availableRooms.add(new AvailableRoom("101", 1));
         availableRooms.add(new AvailableRoom("102", 1));

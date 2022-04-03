@@ -1,6 +1,8 @@
 package writeside.infrastructure;
 
 import org.springframework.stereotype.Component;
+import readside.infrastructure.BookingRepositoryReadImpl;
+import readside.infrastructure.RoomRepositoryReadImpl;
 import writeside.domain.Booking;
 import writeside.domain.api.BookingRepositoryWrite;
 import writeside.domain.valueobjects.BookingId;
@@ -13,6 +15,20 @@ import java.util.Optional;
 public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
 
     private final List<Booking> bookings = new ArrayList<>();
+    private static BookingRepositoryWriteImpl instance;
+
+    public static BookingRepositoryWriteImpl getInstance()
+    {
+        if (null == BookingRepositoryWriteImpl.instance) {
+            new BookingRepositoryWriteImpl();
+        }
+
+        return BookingRepositoryWriteImpl.instance;
+    }
+
+    private BookingRepositoryWriteImpl() {
+        BookingRepositoryWriteImpl.instance = this;
+    }
 
     @Override
     public void createBooking(Booking booking) {

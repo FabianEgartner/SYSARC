@@ -14,8 +14,7 @@ import java.util.List;
 @Component
 public class RoomServiceReadImpl implements RoomServiceRead {
 
-    @Autowired
-    private RoomRepositoryRead roomRepositoryRead = new RoomRepositoryReadImpl();
+    private RoomRepositoryRead roomRepositoryRead = RoomRepositoryReadImpl.getInstance();
 
     @Override
     public List<String> getFreeRooms(LocalDate fromDate, LocalDate toDate, int numberOfGuests) throws NotEnoughRoomsException {
