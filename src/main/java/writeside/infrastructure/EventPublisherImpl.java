@@ -1,7 +1,6 @@
 package writeside.infrastructure;
 
-import eventside.domain.BookingCancelledEvent;
-import eventside.domain.BookingCreatedEvent;
+import eventside.domain.Event;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -12,30 +11,17 @@ public class EventPublisherImpl implements EventPublisher {
     private final WebClient localApiClient = WebClient.create("http://localhost:8080");
 
     @Override
-    public Boolean publishEvent(BookingCreatedEvent event) {
+    public Boolean publishEvent(Event event) {
         System.out.println("[WriteSide] Event published: " + event);
         return localApiClient
                 .post()
-                .uri("/bookingCreated/")
+                .uri(event.getUri())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), BookingCreatedEvent.class)
+                .body(Mono.just(event), event.getClass())
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
     }
 
-    @Override
-    public Boolean publishEvent(BookingCancelledEvent event) {
-        System.out.println("[WriteSide] Event published: " + event);
-        return localApiClient
-                .post()
-                .uri("/bookingCancelled/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), BookingCancelledEvent.class)
-                .retrieve()
-                .bodyToMono(Boolean.class)
-                .block();
-    }
 }

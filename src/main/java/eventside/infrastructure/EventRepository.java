@@ -11,8 +11,6 @@ public class EventRepository {
 
     private final List<Event> events = new ArrayList<>();
 
-//    private List<BookingSubscription> bookingSubscribers = new ArrayList<>();
-
     private List<Subscriber> subscribers = List.of(new Subscriber("http://localhost:8082"));
 
     public void processEvent(Event event) {
@@ -36,19 +34,4 @@ public class EventRepository {
         subscribers.removeIf(subscriber -> subscriber.getHost().equals(host));
     }
 
-
-//    public void addBookingListener(BookingSubscription subscriber)
-//    {
-//        bookingSubscribers.add(subscriber);
-//
-//        for (Event event : events)
-//        {
-//            subscriber.notify(event);
-//        }
-//    }
-
-//    public void removeBookingListener(BookingSubscription bookingCreatedSub)
-//    {
-//        bookingSubscribers.remove(bookingCreatedSub);
-//    }
 }

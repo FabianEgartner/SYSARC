@@ -1,6 +1,5 @@
 package readside.application;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import readside.application.api.BookingServiceRead;
 import readside.application.dto.BookingDTO;
@@ -20,5 +19,14 @@ public class BookingServiceReadImpl implements BookingServiceRead {
     public List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate) {
         List<Booking> bookings = bookingRepositoryRead.getBookings(fromDate, toDate);
         return BookingDTO.fromBookings(bookings);
+    }
+
+    @Override
+    public void addBooking(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate) {
+
+
+//        bookingRepositoryRead.addBooking(new Booking(
+//
+//        ));
     }
 }

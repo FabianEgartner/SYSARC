@@ -12,10 +12,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import readside.application.BookingServiceReadImpl;
 import readside.application.RoomServiceReadImpl;
 import readside.application.api.RoomServiceRead;
+import readside.application.dto.BookingDTO;
 import readside.domain.NotEnoughRoomsException;
 import writeside.domain.api.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
-import writeside.domain.valueobjects.BookingId;
 import writeside.infrastructure.EventPublisherImpl;
 
 import java.time.LocalDate;
@@ -50,14 +50,14 @@ public class BookingController {
         try {
 
             List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
-            bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
+            BookingDTO bookingDTO = bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
 
             eventPublisher.publishEvent(new BookingCreatedEvent(
-                    new BookingId(),
-                    customerName,
-                    LocalDate.parse(fromDate),
-                    LocalDate.parse(toDate),
-                    freeRooms
+                    bookingDTO.getBookingId(),
+                    bookingDTO.getCustomer(),
+                    bookingDTO.getFromDate(),
+                    bookingDTO.getToDate(),
+                    bookingDTO.getRooms()
             ));
 
         } catch (NotEnoughRoomsException e) {

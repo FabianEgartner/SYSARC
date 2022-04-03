@@ -2,6 +2,7 @@ package readside.infrastructure;
 
 import org.springframework.stereotype.Component;
 import readside.application.ReadSideEventPublisher;
+import readside.application.dto.BookingDTO;
 import readside.domain.api.BookingRepositoryRead;
 import writeside.domain.Booking;
 
@@ -38,5 +39,10 @@ public class BookingRepositoryReadImpl implements BookingRepositoryRead {
         }
 
         return bookingsInPeriod;
+    }
+
+    @Override
+    public void addBooking(Booking booking) {
+
     }
 }
