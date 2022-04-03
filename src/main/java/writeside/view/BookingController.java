@@ -16,7 +16,6 @@ import readside.application.dto.BookingDTO;
 import readside.domain.NotEnoughRoomsException;
 import writeside.domain.api.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
-import writeside.infrastructure.EventPublisherImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,13 +24,15 @@ import java.util.List;
 public class BookingController {
 
     @Autowired
+    private EventPublisher eventPublisher;
+
+    @Autowired
     private BookingServiceWrite bookingServiceWrite;
 
     private final RoomServiceRead roomServiceRead = new RoomServiceReadImpl();
 
     private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
 
-    private final EventPublisher eventPublisher = new EventPublisherImpl();
 
 
     @GetMapping("/")
@@ -72,6 +73,9 @@ public class BookingController {
 
     @GetMapping("/bookingOverview")
     public ModelAndView bookingOverview() {
+
+
+
         return new ModelAndView("bookingOverview");
     }
 }

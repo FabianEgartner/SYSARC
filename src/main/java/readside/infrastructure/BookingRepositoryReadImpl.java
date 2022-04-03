@@ -1,8 +1,6 @@
 package readside.infrastructure;
 
 import org.springframework.stereotype.Component;
-import readside.application.ReadSideEventPublisher;
-import readside.application.dto.BookingDTO;
 import readside.domain.api.BookingRepositoryRead;
 import writeside.domain.Booking;
 
@@ -13,20 +11,7 @@ import java.util.List;
 @Component
 public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
-    private final List<Booking> bookings = new ArrayList<>();
-
-    private ReadSideEventPublisher readSideEventPublisher = new ReadSideEventPublisher();
-
-    public BookingRepositoryReadImpl()
-    {
-//        try {
-//            readSideEventPublisher.publishEvent(new SubscriptionEvent(event -> System.out.println("BOOKING_REPO_READ_INFORMED")));
-//        } catch (Exception e)
-//        {
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
-//        }
-    }
+    public List<Booking> bookings = new ArrayList<>();
 
     @Override
     public List<Booking> getBookings(LocalDate fromDate, LocalDate toDate) {
@@ -43,6 +28,6 @@ public class BookingRepositoryReadImpl implements BookingRepositoryRead {
 
     @Override
     public void addBooking(Booking booking) {
-
+        this.bookings.add(booking);
     }
 }

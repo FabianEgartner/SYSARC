@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import readside.application.api.BookingServiceRead;
 import readside.application.api.RoomServiceRead;
+import readside.rest.api.Projection;
 
 @RestController
 public class ReadRestController {
@@ -18,11 +19,12 @@ public class ReadRestController {
     @Autowired
     RoomServiceRead roomService;
 
+    Projection projection = new ProjectionImpl();
+
     @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public boolean bookingCreated(@RequestBody BookingCreatedEvent event) {
         System.out.println("[ReadSide] Event received: " + event);
-
-        // TODO: process event (add booking; change occupied rooms)
+        projection.processEvent(event);
 
         return true;
     }
@@ -30,8 +32,7 @@ public class ReadRestController {
     @PostMapping(value = "/bookingCancelled", consumes = "application/json", produces = "application/json")
     public boolean bookingCancelled(@RequestBody BookingCancelledEvent event) {
         System.out.println("[ReadSide] Event received: " + event);
-
-        // TODO: process event (delete booking; change occupied rooms)
+        projection.processEvent(event);
 
         return true;
     }

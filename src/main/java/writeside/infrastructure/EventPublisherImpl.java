@@ -2,10 +2,12 @@ package writeside.infrastructure;
 
 import eventside.domain.Event;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import writeside.domain.api.EventPublisher;
 
+@Component
 public class EventPublisherImpl implements EventPublisher {
 
     private final WebClient localApiClient = WebClient.create("http://localhost:8080");

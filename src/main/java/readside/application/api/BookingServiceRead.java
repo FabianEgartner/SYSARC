@@ -9,6 +9,4 @@ public interface BookingServiceRead {
 
     List<BookingDTO> getBookings(LocalDate fromDate, LocalDate toDate);
 
-    void addBooking(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate);
-
 }

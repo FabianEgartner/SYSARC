@@ -3,7 +3,6 @@ package readside.infrastructure;
 import org.springframework.stereotype.Component;
 import readside.domain.AvailableRoom;
 import readside.domain.api.RoomRepositoryRead;
-import writeside.domain.Room;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
