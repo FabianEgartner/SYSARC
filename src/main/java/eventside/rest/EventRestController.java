@@ -1,6 +1,6 @@
 package eventside.rest;
 
-import eventside.Infrastructure.EventRepository;
+import eventside.infrastructure.EventRepository;
 import eventside.domain.Event;
 import eventside.domain.api.BookingSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,7 @@ public class EventRestController {
 
     @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public boolean bookRoom(@RequestBody Event event) {
-        System.out.println("EventRestController: /bookingCreated");
-        System.out.println(event);
+        System.out.println("[EventSide] Event received: " + event);
         repository.processEvent(event);
         return true;
     }
@@ -34,7 +33,7 @@ public class EventRestController {
     public boolean subscribe(@RequestBody BookingSubscription bookingSubscription) {
         System.out.println("EventRestController: /subscribed");
         System.out.println(bookingSubscription);
-        repository.addBookingListener(bookingSubscription);
+//        repository.addBookingListener(bookingSubscription);
         return true;
     }
 }

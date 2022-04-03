@@ -1,27 +1,33 @@
-package readside.application;
+package eventside.infrastructure;
 
 import eventside.domain.Event;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-@Component
-public class ReadSideEventPublisher {
+public class Subscriber {
 
-    private final WebClient localApiClient = WebClient.create("http://localhost:8080");
+    private final String host;
+    private final WebClient webClient;
 
-    public Boolean publishEvent(Event event) {
-        System.out.println(event);
-        return localApiClient
-                .post()
+    public Subscriber(String host) {
+        this.host = host;
+        this.webClient = WebClient.create(host);
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void notify(Event event) {
+        webClient.post()
                 .uri(event.getUri())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), event.getClass())
+                .body(Mono.just(event), Event.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
     }
-}
 
+}

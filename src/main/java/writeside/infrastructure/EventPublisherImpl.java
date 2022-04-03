@@ -13,7 +13,7 @@ public class EventPublisherImpl implements EventPublisher {
 
     @Override
     public Boolean publishEvent(BookingCreatedEvent event) {
-        System.out.println("Event published: " + event);
+        System.out.println("[WriteSide] Event published: " + event);
         return localApiClient
                 .post()
                 .uri("/bookingCreated/")
@@ -27,7 +27,7 @@ public class EventPublisherImpl implements EventPublisher {
 
     @Override
     public Boolean publishEvent(BookingCancelledEvent event) {
-        System.out.println("Event published: " + event);
+        System.out.println("[WriteSide] Event published: " + event);
         return localApiClient
                 .post()
                 .uri("/bookingCancelled/")

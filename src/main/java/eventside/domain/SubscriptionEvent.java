@@ -12,7 +12,7 @@ public class SubscriptionEvent extends Event {
 
     private BookingSubscription subscriber;
 
-    public SubscriptionEvent(){};
+    public SubscriptionEvent(){}
 
     public SubscriptionEvent(BookingSubscription subscriber) {
         this.subscriber = subscriber;
