@@ -6,7 +6,13 @@ public class BookingId {
 
     private final UUID bookingId;
 
-    public BookingId() {this.bookingId = UUID.randomUUID(); }
+    public BookingId() {
+        this.bookingId = UUID.randomUUID();
+    }
+
+    public BookingId(String id) {
+        this.bookingId = UUID.fromString(id);
+    }
 
     public UUID getBookingId() {
         return bookingId;

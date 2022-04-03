@@ -15,9 +15,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import readside.application.dto.BookingDTO;
 import writeside.domain.api.EventPublisher;
 import writeside.application.api.BookingServiceWrite;
+import writeside.domain.valueobjects.BookingId;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class BookingController {
@@ -35,8 +37,8 @@ public class BookingController {
         return new ModelAndView("index");
     }
 
-    @PostMapping("/bookRoom")
-    public RedirectView submitBooking(
+    @PostMapping("/createBooking")
+    public RedirectView createBooking(
             @RequestParam("customerName") String customerName,
             @RequestParam("fromDate") String fromDate,
             @RequestParam("toDate") String toDate,
@@ -66,6 +68,13 @@ public class BookingController {
         ));
 
         redirectAttributes.addFlashAttribute("bookingCreated", "success");
+        return new RedirectView("/");
+    }
+
+    @PostMapping("/cancelBooking")
+    public RedirectView cancelBooking(@RequestParam("bookingId") String bookingId) {
+        bookingServiceWrite.cancelBooking(new BookingId(bookingId));
+
         return new RedirectView("/");
     }
 

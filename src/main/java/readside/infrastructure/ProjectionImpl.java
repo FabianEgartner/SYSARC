@@ -44,7 +44,10 @@ public class ProjectionImpl implements Projection {
             {
                 if (bookingCreatedEvent.getRooms().contains(availableRoom.getRoomNumber()))
                 {
-                    availableRoom.addOccupiedPeriod(new OccupiedPeriod(bookingCreatedEvent.getFromDate(), bookingCreatedEvent.getToDate()));
+                    availableRoom.addOccupiedPeriod(new OccupiedPeriod(
+                            bookingCreatedEvent.getFromDate(),
+                            bookingCreatedEvent.getToDate()
+                    ));
                 }
             }
 
