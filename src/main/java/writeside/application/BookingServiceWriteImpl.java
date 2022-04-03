@@ -20,8 +20,6 @@ public class BookingServiceWriteImpl implements BookingServiceWrite {
     @Autowired
     private BookingRepositoryWrite bookingRepository;
 
-    private RoomRepositoryRead roomRepository = new RoomRepositoryReadImpl();
-
     @Override
     public BookingDTO bookRoom(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate) {
 

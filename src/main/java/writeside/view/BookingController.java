@@ -34,7 +34,6 @@ public class BookingController {
     private final BookingServiceReadImpl bookingServiceRead = new BookingServiceReadImpl();
 
 
-
     @GetMapping("/")
     public ModelAndView startPage() {
         return new ModelAndView("index");
@@ -49,7 +48,6 @@ public class BookingController {
             RedirectAttributes redirectAttributes) {
 
         try {
-
             List<String> freeRooms = roomServiceRead.getFreeRooms(LocalDate.parse(fromDate), LocalDate.parse(toDate), Integer.parseInt(numberOfGuests));
             BookingDTO bookingDTO = bookingServiceWrite.bookRoom(customerName, freeRooms, LocalDate.parse(fromDate), LocalDate.parse(toDate));
 

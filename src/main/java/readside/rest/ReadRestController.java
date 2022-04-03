@@ -19,7 +19,8 @@ public class ReadRestController {
     @Autowired
     RoomServiceRead roomService;
 
-    Projection projection = new ProjectionImpl();
+    @Autowired
+    Projection projection;
 
     @PostMapping(value = "/bookingCreated", consumes = "application/json", produces = "application/json")
     public boolean bookingCreated(@RequestBody BookingCreatedEvent event) {
