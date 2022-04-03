@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Booking</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Hotel Application</a>
+    <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Create Booking</a>
+            <a class="nav-item nav-link" href="bookingOverview">Booking Overview</a>
+            <a class="nav-item nav-link" href="roomOverview">Room Overview</a>
+        </div>
+    </div>
+</nav>
+
+<!-- container -->
+<div class="container">
+    <div th:if="*{bookingCreated}">
+        <div th:if="*{bookingCreated.contains('success')}" class="alert alert-success text-center mt-3" role="alert">
+            Booking successfully created!
+        </div>
+        <div th:if="*{bookingCreated.contains('failure')}" class="alert alert-danger text-center mt-3" role="alert">
+            Create booking failed!
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <h2>Create Booking</h2>
+
+        <form action="/createBooking" method="post">
+            <div class="form-group row">
+                <label for="customerName" class="col-sm-2 col-form-label">Customer Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="customerName" name="customerName" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="fromDate" class="col-sm-2 col-form-label">From Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="fromDate" name="fromDate" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="toDate" class="col-sm-2 col-form-label">To Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="toDate" name="toDate" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="numberOfGuests" class="col-sm-2 col-form-label">Number of Guests</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="numberOfGuests" name="numberOfGuests" min="1" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2">Create</button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

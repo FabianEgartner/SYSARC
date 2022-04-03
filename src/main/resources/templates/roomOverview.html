@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room Overview</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Hotel Application</a>
+    <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/">Create Booking</a>
+            <a class="nav-item nav-link" href="bookingOverview">Booking Overview</a>
+            <a class="nav-item nav-link active" href="roomOverview">Room Overview</a>
+        </div>
+    </div>
+</nav>
+
+<!-- container -->
+<div class="container">
+    <div class="text-center mt-5">
+        <h2>Room Overview</h2>
+
+        <form action="/freeRooms" method="post">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="fromDate">From Date</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="fromDate" name="fromDate" type="date" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="toDate">To Date</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="toDate" name="toDate" type="date" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="numberOfGuests">Number of Guests</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="numberOfGuests" name="numberOfGuests" type="number" min="1" required>
+                </div>
+
+                <button class="col-sm-1 btn btn-primary mb-2" type="submit">Search</button>
+            </div>
+        </form>
+
+        <div th:if="*{rooms}">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Room Number</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="room, iter: ${rooms}">
+                    <td th:text="${room}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

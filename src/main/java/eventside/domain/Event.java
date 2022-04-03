@@ -1,41 +1,32 @@
 package eventside.domain;
 
-public class Event {
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-    private String customer;
-    private long timestamp;
-    private String content;
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+public abstract class Event {
 
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
+    protected long timestamp;
+    protected String uri;
+    protected String className;
 
     public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public String getUri() {
+        return uri;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public String getClassName() {
+        return className;
     }
 
     @Override
     public String toString() {
         return "Event{" +
-                "customer='" + customer + '\'' +
-                ", timestamp=" + timestamp +
-                ", content='" + content + '\'' +
+                "timestamp=" + timestamp +
+                ", uri='" + uri + '\'' +
+                ", className='" + className + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Overview</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Hotel Application</a>
+    <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/">Create Booking</a>
+            <a class="nav-item nav-link active" href="bookingOverview">Booking Overview</a>
+            <a class="nav-item nav-link" href="roomOverview">Room Overview</a>
+        </div>
+    </div>
+</nav>
+
+<!-- container -->
+<div class="container">
+    <div th:if="*{bookingCancelled}">
+        <div th:if="*{bookingCancelled.contains('success')}" class="alert alert-success text-center mt-3" role="alert">
+            Booking successfully cancelled!
+        </div>
+        <div th:if="*{bookingCancelled.contains('failure')}" class="alert alert-danger text-center mt-3" role="alert">
+            Cancel booking failed!
+        </div>
+        <div th:if="*{bookingCancelled.contains('invalid')}" class="alert alert-danger text-center mt-3" role="alert">
+            Cancel booking failed! UUID is not valid!
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <h2>Booking Overview</h2>
+
+        <form action="/allBookingsByPeriod" method="post">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="fromDate">From Date</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="fromDate" name="fromDate" type="date" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="toDate">To Date</label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="toDate" name="toDate" type="date" required>
+                </div>
+
+                <button class="col-sm-1 btn btn-primary mb-2" type="submit">Search</button>
+            </div>
+        </form>
+
+        <form action="/allBookings" method="post">
+            <button class="btn btn-secondary mb-2" type="submit">All Bookings</button>
+        </form>
+
+        <div th:if="*{bookings}">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Booking ID</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">From Date</th>
+                    <th scope="col">To Date</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="booking, iter: ${bookings}">
+                    <td th:text="${booking.bookingId.bookingId}"></td>
+                    <td th:text="${booking.customer}"></td>
+                    <td th:text="${booking.fromDate}"></td>
+                    <td th:text="${booking.toDate}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4>Cancel Booking</h4>
+            <form action="/cancelBooking" method="post">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="bookingId">Booking ID</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" id="bookingId" name="bookingId" type="text" maxlength="36">
+                    </div>
+
+                    <button class="col-sm-1 btn btn-danger mb-2" type="submit">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>
