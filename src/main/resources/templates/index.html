@@ -26,8 +26,13 @@
 
 <!-- container -->
 <div class="container">
-    <div th:if="*{bookingCreated}" class="alert alert-success text-center mt-3" role="alert">
-        Booking successfully created!
+    <div th:if="*{bookingCreated}">
+        <div th:if="*{bookingCreated.contains('success')}" class="alert alert-success text-center mt-3" role="alert">
+            Booking successfully created!
+        </div>
+        <div th:if="*{bookingCreated.contains('failure')}" class="alert alert-danger text-center mt-3" role="alert">
+            Create booking failed!
+        </div>
     </div>
 
     <div class="text-center mt-5">

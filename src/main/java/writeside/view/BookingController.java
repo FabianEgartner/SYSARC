@@ -63,11 +63,11 @@ public class BookingController {
 
         } catch (NotEnoughRoomsException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("bookingCreated", e.getMessage());
-            return new RedirectView("bookingFailed");
+            redirectAttributes.addFlashAttribute("bookingCreated", "failure");
+            return new RedirectView("/");
         }
 
-        redirectAttributes.addFlashAttribute("bookingCreated", "booking successfully created");
+        redirectAttributes.addFlashAttribute("bookingCreated", "success");
         return new RedirectView("/");
     }
 }
