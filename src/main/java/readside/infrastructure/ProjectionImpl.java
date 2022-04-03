@@ -63,7 +63,6 @@ public class ProjectionImpl implements Projection {
                     bookings.remove(i);
                 }
             }
-
         }
 
     }

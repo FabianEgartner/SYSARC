@@ -3,7 +3,6 @@ package eventside.infrastructure;
 import eventside.domain.Event;
 import eventside.domain.api.EventRepository;
 import org.springframework.stereotype.Component;
-import writeside.infrastructure.BookingRepositoryWriteImpl;
 
 import java.util.ArrayList;
 import java.util.List;

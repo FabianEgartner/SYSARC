@@ -28,6 +28,15 @@
 
 <!-- container -->
 <div class="container">
+    <div th:if="*{bookingCancelled}">
+        <div th:if="*{bookingCancelled.contains('success')}" class="alert alert-success text-center mt-3" role="alert">
+            Booking successfully cancelled!
+        </div>
+        <div th:if="*{bookingCancelled.contains('failure')}" class="alert alert-danger text-center mt-3" role="alert">
+            Cancel booking failed!
+        </div>
+    </div>
+
     <div class="text-center mt-5">
         <h2>Booking Overview</h2>
 
@@ -78,7 +87,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="bookingId">Booking ID</label>
                     <div class="col-sm-9">
-                        <input class="form-control" id="bookingId" name="bookingId" type="text">
+                        <input class="form-control" id="bookingId" name="bookingId" type="text" maxlength="36">
                     </div>
 
                     <button class="col-sm-1 btn btn-danger mb-2" type="submit">Cancel</button>

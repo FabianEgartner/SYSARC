@@ -1,6 +1,5 @@
 package readside.domain.api;
 
-import readside.domain.AvailableRoom;
 import writeside.domain.Booking;
 
 import java.time.LocalDate;

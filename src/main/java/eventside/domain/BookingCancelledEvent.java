@@ -20,10 +20,6 @@ public class BookingCancelledEvent extends Event {
         this.className = "BookingCancelledEvent.class";
     }
 
-    // needed by JSON deserialization to construct objects from class
-//    public BookingCancelledEvent() {
-//    }
-
     public BookingId getBookingId() {
         return bookingId;
     }
