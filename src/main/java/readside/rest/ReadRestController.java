@@ -11,6 +11,7 @@ import readside.infrastructure.BookingRepositoryReadImpl;
 import readside.rest.api.Projection;
 import writeside.domain.Booking;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,6 +49,6 @@ public class ReadRestController {
     public List<Booking> getAllBookings(@RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
         System.out.println("fromDate: " + fromDate);
         System.out.println("toDate: " + toDate);
-        return Collections.emptyList();
+        return bookingRepositoryRead.getBookingsByPeriod(LocalDate.parse(fromDate), LocalDate.parse(toDate));
     }
 }

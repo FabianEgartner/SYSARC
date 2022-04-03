@@ -71,9 +71,31 @@ public class BookingController {
             return new RedirectView("/");
         }
 
-        WebClient webClient = WebClient.create("http://localhost:8082");
-        List bookings = webClient.get()
-                .uri("/allBookings/")
+//        WebClient webClient = WebClient.create("http://localhost:8082");
+//        List bookings = webClient.get()
+//                .uri("/allBookings/")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(List.class)
+//                .block();
+//
+//        System.out.println("BOOKINGS:" + bookings);
+
+//        WebClient webClient2 = WebClient.create("http://localhost:8082");
+//        List bookings = webClient2.get()
+//                .uri("/allBookingsByPeriod/?fromDate=" + fromDate + "&toDate=" + toDate)
+//                //.contentType(MediaType.APPLICATION_JSON)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(List.class)
+//                .block();
+//
+//                System.out.println("BOOKINGS:" + bookings);
+
+        WebClient webClient2 = WebClient.create("http://localhost:8082");
+        List bookings = webClient2.get()
+                .uri("/allBookingsByPeriod/?fromDate=2022-01-01&toDate=2022-01-03")
+                //.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(List.class)
@@ -81,14 +103,6 @@ public class BookingController {
 
         System.out.println("BOOKINGS:" + bookings);
 
-//        WebClient webClient2 = WebClient.create("http://localhost:8082");
-//        webClient2.get()
-//                .uri("/allBookingsByPeriod/?fromDate=" + fromDate + "&toDate=" + toDate)
-//                //.contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(Boolean.class)
-//                .block();
 
 //        String json = webClient.get()
 //                .uri("/allBookings/")
