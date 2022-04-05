@@ -11,6 +11,7 @@ import java.util.List;
 public class EventRepositoryImpl implements EventRepository {
 
     private final List<Event> events = new ArrayList<>();
+    private List<Subscriber> subscribers = List.of(new Subscriber("http://localhost:8082"));
     private static EventRepositoryImpl instance;
 
     public static EventRepositoryImpl getInstance()
@@ -25,8 +26,6 @@ public class EventRepositoryImpl implements EventRepository {
     private EventRepositoryImpl() {
         EventRepositoryImpl.instance = this;
     }
-
-    private List<Subscriber> subscribers = List.of(new Subscriber("http://localhost:8082"));
 
     @Override
     public void processEvent(Event event) {

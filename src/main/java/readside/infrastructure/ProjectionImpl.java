@@ -18,7 +18,6 @@ import java.util.List;
 public class ProjectionImpl implements Projection {
 
     BookingRepositoryRead bookingRepositoryRead = BookingRepositoryReadImpl.getInstance();
-
     RoomRepositoryRead roomRepositoryRead = RoomRepositoryReadImpl.getInstance();
 
     @Override
