@@ -1,6 +1,6 @@
 package readside.domain.api;
 
-import readside.domain.Room;
+import writeside.domain.Room;
 
 import java.time.LocalDate;
 import java.util.List;

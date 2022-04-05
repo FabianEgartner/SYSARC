@@ -1,7 +1,7 @@
 package readside.infrastructure;
 
 import org.springframework.stereotype.Repository;
-import readside.domain.Room;
+import writeside.domain.Room;
 import readside.domain.api.RoomRepositoryRead;
 
 import java.time.LocalDate;
