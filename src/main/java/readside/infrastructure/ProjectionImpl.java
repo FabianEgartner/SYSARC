@@ -4,7 +4,7 @@ import eventside.domain.BookingCancelledEvent;
 import eventside.domain.BookingCreatedEvent;
 import eventside.domain.Event;
 import org.springframework.stereotype.Component;
-import readside.domain.AvailableRoom;
+import readside.domain.Room;
 import readside.domain.OccupiedPeriod;
 import readside.domain.api.BookingRepositoryRead;
 import readside.domain.api.RoomRepositoryRead;
@@ -38,13 +38,13 @@ public class ProjectionImpl implements Projection {
             ));
 
 
-            List<AvailableRoom> availableRooms = roomRepositoryRead.getAvailableRooms();
+            List<Room> rooms = roomRepositoryRead.getRooms();
 
-            for (AvailableRoom availableRoom : availableRooms)
+            for (Room room : rooms)
             {
-                if (bookingCreatedEvent.getRooms().contains(availableRoom.getRoomNumber()))
+                if (bookingCreatedEvent.getRooms().contains(room.getRoomNumber()))
                 {
-                    availableRoom.addOccupiedPeriod(new OccupiedPeriod(
+                    room.addOccupiedPeriod(new OccupiedPeriod(
                             bookingCreatedEvent.getFromDate(),
                             bookingCreatedEvent.getToDate()
                     ));

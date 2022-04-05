@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AvailableRoom {
+public class Room {
 
     private final String roomNumber;
     private final int numberOfBeds;
     private final List<OccupiedPeriod> occupiedPeriods = new ArrayList<>();
 
 
-    public AvailableRoom(String roomNumber, int numberOfBeds) {
+    public Room(String roomNumber, int numberOfBeds) {
         this.roomNumber = roomNumber;
         this.numberOfBeds = numberOfBeds;
     }
@@ -43,7 +43,7 @@ public class AvailableRoom {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AvailableRoom that = (AvailableRoom) o;
+        Room that = (Room) o;
         return roomNumber.equals(that.roomNumber);
     }
 
@@ -54,7 +54,7 @@ public class AvailableRoom {
 
     @Override
     public String toString() {
-        return "AvailableRoom{" +
+        return "Room{" +
                 "roomNumber='" + roomNumber + '\'' +
                 ", numberOfBeds=" + numberOfBeds +
                 ", occupiedPeriods=" + occupiedPeriods +
