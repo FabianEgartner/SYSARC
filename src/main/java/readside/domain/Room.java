@@ -17,7 +17,6 @@ public class Room {
         this.numberOfBeds = numberOfBeds;
     }
 
-
     public String getRoomNumber() {
         return roomNumber;
     }
@@ -25,6 +24,8 @@ public class Room {
     public int getNumberOfBeds() {
         return numberOfBeds;
     }
+
+    public List<OccupiedPeriod> getOccupiedPeriods() { return occupiedPeriods; }
 
     public void addOccupiedPeriod(OccupiedPeriod occupiedPeriod) {
         occupiedPeriods.add(occupiedPeriod);

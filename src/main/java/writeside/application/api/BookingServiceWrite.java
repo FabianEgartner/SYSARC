@@ -11,5 +11,4 @@ public interface BookingServiceWrite {
     BookingDTO createBooking(String customer, List<String> bookedRooms, LocalDate fromDate, LocalDate toDate);
 
     boolean cancelBooking(BookingId id);
-
 }

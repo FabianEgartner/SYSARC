@@ -11,6 +11,7 @@ import readside.domain.api.RoomRepositoryRead;
 import readside.domain.api.Projection;
 import writeside.domain.Booking;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -54,16 +55,43 @@ public class ProjectionImpl implements Projection {
         } else if (event instanceof BookingCancelledEvent) {
 
             BookingCancelledEvent bookingCancelledEvent = (BookingCancelledEvent) event;
-
             List<Booking> bookings = bookingRepositoryRead.getAllBookings();
+
+            List<Room> allRooms = roomRepositoryRead.getRooms();
+            LocalDate fromDateToRemove = null;
+            LocalDate toDateToRemove = null;
+            List<String> roomsToRemove = null;
 
             for (int i = 0; i < bookings.size(); i++) {
 
-                if (bookings.get(i).getBookingId().equals(bookingCancelledEvent.getBookingId())) {
+                Booking currentBooking = bookings.get(i);
+
+                if (currentBooking.getBookingId().equals(bookingCancelledEvent.getBookingId())) {
+                    fromDateToRemove = currentBooking.getFromDate();
+                    toDateToRemove = currentBooking.getToDate();
+                    roomsToRemove = currentBooking.getRooms();
                     bookings.remove(i);
                 }
             }
-        }
 
+            for (Room room : allRooms)
+            {
+                for (String roomToRemove : roomsToRemove)
+                {
+                    if (room.getRoomNumber().equals(roomToRemove))
+                    {
+                        List<OccupiedPeriod> occupiedPeriods = room.getOccupiedPeriods();
+
+                        for (int i = 0; i < occupiedPeriods.size(); i++)
+                        {
+                            if (occupiedPeriods.get(i).getFromDate().equals(fromDateToRemove) && occupiedPeriods.get(i).getToDate().equals(toDateToRemove))
+                            {
+                                occupiedPeriods.remove(i);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
