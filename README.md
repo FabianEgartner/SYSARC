@@ -7,11 +7,24 @@
 4. Open a browser on http://localhost:8081/
 5. Interact with the webinterface to create or cancel bookings, to show existing bookings or to find free rooms
 
+Detailed instructions on the individual functions can be found in the file `Documentation.pdf`. A detailed explanation of what exactly happens with the various functions is described in this file's Communication > Procedures section.
+
 ## Project Structure
 The project is divided into 3 subprojects 
 - Writeside
 - Eventside
 - Readside
+
+## Architecture
+The individual subprojects were implemented independently of each other and are therefore to be seen as independent applications as they only communicate with each other via interfaces. 
+
+The WriteSide is designed according to principle of the 4-layered architecture, containing View, Application, Domain and Infrastructure Layer.
+
+The EventSide contains event logic and is responsible for notifying the various subscribers of appropriate events.
+
+In contrast to the WriteSide, the ReadSide is designed without Domain and Application Layer and thus contains no domain logic. Because of this decision, data can be accessed more quickly. On this side, the data is stored in a simplified structure using the projection.
+
+In the `Documentation.pdf` file there is a clear diagram showing the structure of the architecture.
 
 ## Communication
 
