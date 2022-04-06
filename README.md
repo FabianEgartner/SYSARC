@@ -4,8 +4,8 @@
 1. start the eventside
 2. start the writeside
 3. start the readside
-4. Open a browser on http://localhost:8081/
-5. Interact with the webinterface to create or cancel bookings, to show existing bookings or to find free rooms
+4. open a browser on http://localhost:8081/
+5. interact with the webinterface to create or cancel bookings, to show existing bookings or to find free rooms
 
 Detailed instructions on the individual functions can be found in the file `Documentation.pdf`. A detailed explanation of what exactly happens with the various functions is described in this file's Communication > Procedures section.
 
