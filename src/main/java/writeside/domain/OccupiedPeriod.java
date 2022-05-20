@@ -1,4 +1,4 @@
-package readside.domain;
+package writeside.domain;
 
 import java.time.LocalDate;
 

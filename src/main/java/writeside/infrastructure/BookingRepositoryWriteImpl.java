@@ -7,7 +7,6 @@ import writeside.domain.valueobjects.BookingId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
@@ -46,17 +45,5 @@ public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
         }
 
         return false;
-    }
-
-    @Override
-    public Optional<Booking> getBooking(BookingId bookingId) {
-
-        for (Booking booking : BookingRepositoryWriteImpl.bookings)
-        {
-            if (booking.getBookingId().equals(bookingId))
-                return Optional.of(booking);
-        }
-
-        return Optional.empty();
     }
 }

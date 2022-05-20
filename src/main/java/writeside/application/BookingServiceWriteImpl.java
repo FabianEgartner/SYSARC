@@ -10,7 +10,6 @@ import writeside.infrastructure.BookingRepositoryWriteImpl;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class BookingServiceWriteImpl implements BookingServiceWrite {
@@ -28,13 +27,6 @@ public class BookingServiceWriteImpl implements BookingServiceWrite {
 
     @Override
     public boolean cancelBooking(BookingId bookingId) {
-
-        Optional<Booking> optBooking = bookingRepository.getBooking(bookingId);
-
-        if (optBooking.isEmpty()) {
-            return false;
-        }
-
         return bookingRepository.cancelBooking(bookingId);
     }
 }
